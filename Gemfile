@@ -3,5 +3,6 @@ gem 'sinatra'
 gem 'rack'
 gem 'puma'
 gem 'pg'
+gem 'json'
 
 
