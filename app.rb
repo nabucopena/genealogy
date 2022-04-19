@@ -1,6 +1,10 @@
 require 'sinatra'
+require "sinatra/cors"
 require 'pg'
 require 'json'
+
+set :allow_origin, "*"
+
 conn = PG.connect(dbname: "genealogy")
 
 get '/' do

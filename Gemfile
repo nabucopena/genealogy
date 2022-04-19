@@ -4,5 +4,5 @@ gem 'rack'
 gem 'puma'
 gem 'pg'
 gem 'json'
-
+gem 'sinatra-cors'
 
