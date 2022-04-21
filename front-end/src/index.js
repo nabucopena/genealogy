@@ -7,9 +7,22 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const API = "http://localhost:9292"
 const fetcher = (path) => fetch(`${API}${path}`).then(res => res.json());
 
-function Profile () {
+function ShowPeople (props) {
+  return <div>
+    {
+      props['people'].map(
+        x => <button key={x['id']} onClick={() => props.selectPeople(x['name'])}>
+          {`${x['name']} ${x['lastname']}`}
+        </button>
+      )
+    }
+  </div>
+}
+
+function SearchPeople () {
   const [searchName, setSearchName] = React.useState("")
   const [searchLastName, setSearchLastName] = React.useState("")
+  const [selected, setSelected] = React.useState("")
   let searchParams = [
     searchName ? 'name=' + encodeURIComponent(searchName) : '',
     searchLastName ? 'lastname=' + encodeURIComponent(searchLastName) : ''
@@ -20,7 +33,9 @@ function Profile () {
   return <div>
     <input value={searchName} onChange={e => setSearchName(e.target.value)} />
     <input value={searchLastName} onChange={e => setSearchLastName(e.target.value)} />
-     {error ? `ERROR ${error}}` : data ? JSON.stringify(data) : "cargando"}</div>
+     {error ? `ERROR ${error}}` : data ? <ShowPeople people={data} selectPeople={setSelected}/> : "cargando"}
+    <p> {selected} </p>
+  </div>
 }
 
 function Hi(props) {
@@ -33,7 +48,7 @@ function Hi(props) {
 
 root.render(
   <React.StrictMode>
-    <Profile/>
+    <SearchPeople/>
   </React.StrictMode>
 );
 
